@@ -40,7 +40,7 @@ fun WellnessTaskItem(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text( 
+        Text(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 16.dp),
