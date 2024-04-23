@@ -30,6 +30,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.steelzoo.myapplication.board.BoardScreen
+import com.steelzoo.myapplication.home.HomeScreen
+import com.steelzoo.myapplication.manage_class.ManageStudentScreen
+import com.steelzoo.myapplication.manage_student.ManageClassScreen
 import com.steelzoo.myapplication.ui.theme.Cream
 import com.steelzoo.myapplication.ui.theme.MyApplicationTheme
 
@@ -38,22 +46,44 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                 var selectedBottomNavItem: BottomNavItem by rememberSaveable { mutableStateOf(HomeNavItem) }
+                var selectedBottomNavItem: BottomNavItem by rememberSaveable { mutableStateOf(HomeNavItem) }
+                val navController = rememberNavController()
+                val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+
                 Scaffold(
                     bottomBar = {
                         BottomNav(
                             modifier = Modifier,
                             itemClick = { item ->
+                                navController.navigate(item.route)
                                 selectedBottomNavItem = item
                             },
                             selectedItem = selectedBottomNavItem
                         )
                     }
                 ) { innerPadding ->
-                    MainPage(
-                        modifier = Modifier.padding(innerPadding),
-                        name = selectedBottomNavItem.label
-                    )
+                    NavHost(
+                        navController = navController,
+                        startDestination = HomeNavItem.route,
+                        modifier = Modifier.padding(innerPadding)
+                    ){
+                        composable(HomeNavItem.route){
+                            selectedBottomNavItem = HomeNavItem
+                            HomeScreen()
+                        }
+                        composable(ManageClassNavItem.route){
+                            selectedBottomNavItem = ManageClassNavItem
+                            ManageClassScreen()
+                        }
+                        composable(ManageStudentNavItem.route){
+                            selectedBottomNavItem = ManageStudentNavItem
+                            ManageStudentScreen()
+                        }
+                        composable(BoardNavItem.route){
+                            selectedBottomNavItem = BoardNavItem
+                            BoardScreen()
+                        }
+                    }
                 }
             }
         }
@@ -118,24 +148,43 @@ fun BottomNav(
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-
-        var title by remember { mutableStateOf("") }
+        var selectedBottomNavItem: BottomNavItem by rememberSaveable { mutableStateOf(HomeNavItem) }
+        val navController = rememberNavController()
+        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
         Scaffold(
             bottomBar = {
                 BottomNav(
                     modifier = Modifier,
                     itemClick = { item ->
-                        title = item.label
+                        selectedBottomNavItem = item
                     },
-                    selectedItem = HomeNavItem
+                    selectedItem = selectedBottomNavItem
                 )
             }
         ) { innerPadding ->
-            MainPage(
-                modifier = Modifier.padding(innerPadding),
-                name = title
-            )
+            NavHost(
+                navController = navController,
+                startDestination = HomeNavItem.route,
+                modifier = Modifier.padding(innerPadding)
+            ){
+                composable(HomeNavItem.route){
+                    selectedBottomNavItem = HomeNavItem
+                    HomeScreen()
+                }
+                composable(ManageClassNavItem.route){
+                    selectedBottomNavItem = ManageClassNavItem
+                    ManageClassScreen()
+                }
+                composable(ManageStudentNavItem.route){
+                    selectedBottomNavItem = ManageStudentNavItem
+                    ManageStudentScreen()
+                }
+                composable(BoardNavItem.route){
+                    selectedBottomNavItem = BoardNavItem
+                    BoardScreen()
+                }
+            }
         }
     }
 }

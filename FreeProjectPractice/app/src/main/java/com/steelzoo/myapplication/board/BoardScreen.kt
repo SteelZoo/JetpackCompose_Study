@@ -28,12 +28,12 @@ import com.steelzoo.myapplication.ui.theme.MyApplicationTheme
 @Composable
 fun BoardPagePreview() {
     MyApplicationTheme {
-        BoardPage()
+        BoardScreen()
     }
 }
 
 @Composable
-fun BoardPage(
+fun BoardScreen(
 
 ) {
     Column(
