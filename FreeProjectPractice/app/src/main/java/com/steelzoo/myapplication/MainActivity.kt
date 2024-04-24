@@ -3,15 +3,16 @@ package com.steelzoo.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
@@ -29,11 +30,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.steelzoo.myapplication.board.BoardScreen
 import com.steelzoo.myapplication.home.HomeScreen
 import com.steelzoo.myapplication.manage_class.ManageStudentScreen
@@ -46,41 +47,45 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                var selectedBottomNavItem: BottomNavItem by rememberSaveable { mutableStateOf(HomeNavItem) }
                 val navController = rememberNavController()
                 val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+                val navOption = navOptions {
+                        popUpTo(HomeNavItem.route){
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+
 
                 Scaffold(
                     bottomBar = {
                         BottomNav(
                             modifier = Modifier,
                             itemClick = { item ->
-                                navController.navigate(item.route)
-                                selectedBottomNavItem = item
+                                navController.navigate(item.route,navOption)
                             },
-                            selectedItem = selectedBottomNavItem
+                            selectedItem = bottomNavItems.find { it.route == currentDestination?.route } ?: HomeNavItem
                         )
                     }
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = HomeNavItem.route,
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        enterTransition ={ fadeIn(animationSpec = tween(0)) },
+                        exitTransition ={ fadeOut(animationSpec = tween(0)) }
                     ){
                         composable(HomeNavItem.route){
-                            selectedBottomNavItem = HomeNavItem
                             HomeScreen()
                         }
                         composable(ManageClassNavItem.route){
-                            selectedBottomNavItem = ManageClassNavItem
                             ManageClassScreen()
                         }
                         composable(ManageStudentNavItem.route){
-                            selectedBottomNavItem = ManageStudentNavItem
                             ManageStudentScreen()
                         }
                         composable(BoardNavItem.route){
-                            selectedBottomNavItem = BoardNavItem
                             BoardScreen()
                         }
                     }
