@@ -1,8 +1,11 @@
 package com.steelzoo.myapplication.home
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,9 +33,13 @@ fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+            .padding(start = 20.dp, end = 20.dp)
+            .verticalScroll(ScrollState(0)),
     ) {
-        TeacherInfoCard("홍유준")
+        TeacherInfoCard(
+            modifier = Modifier.padding(top = 20.dp),
+            teacherName = "홍유준"
+        )
         RunningCardView(
             modifier = Modifier.padding(top = 40.dp),
             cardColor = Red,
@@ -50,7 +57,7 @@ fun HomeScreen() {
             imageAligment = Alignment.CenterEnd
         )
         RankCardView(
-            modifier = Modifier.padding(top = 20.dp)
+            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp)
         )
     }
 }

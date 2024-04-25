@@ -17,3 +17,5 @@ val Red = Color(0xFFFFC9D1)
 val Cream = Color(0xFFFFF6F0)
 val Purple = Color(0xFFD8C1EE)
 val Yellow = Color(0xFFFFEDAD)
+
+val DarkRed = Color(0xFFA3172D)

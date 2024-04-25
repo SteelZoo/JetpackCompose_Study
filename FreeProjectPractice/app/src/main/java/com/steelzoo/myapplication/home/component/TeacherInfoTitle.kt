@@ -32,12 +32,13 @@ fun TeacherInfoCardPreview() {
 
 @Composable
 fun TeacherInfoCard(
+    modifier: Modifier = Modifier,
     teacherName: String
 ){
     val height = 120.dp
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(
