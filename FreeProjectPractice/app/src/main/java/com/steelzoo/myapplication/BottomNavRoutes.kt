@@ -22,6 +22,7 @@ interface BottomNavItem : Serializable {
 }
 
 object HomeNavItem : BottomNavItem {
+    private fun readResolve(): Any = HomeNavItem
     override val icon: Int = R.drawable.home_rocket
     override val iconTint: Color = Red
     override val label: String = "홈"
@@ -29,6 +30,7 @@ object HomeNavItem : BottomNavItem {
 }
 
 object BoardNavItem : BottomNavItem {
+    private fun readResolve(): Any = BoardNavItem
     override val icon: Int = R.drawable.board
     override val iconTint: Color = Blue
     override val label: String = "게시판"
@@ -36,6 +38,7 @@ object BoardNavItem : BottomNavItem {
 }
 
 object ManageStudentNavItem : BottomNavItem {
+    private fun readResolve(): Any = ManageStudentNavItem
     override val icon: Int = R.drawable.manage_student
     override val iconTint: Color = Purple
     override val label: String = "학생관리"
@@ -43,6 +46,7 @@ object ManageStudentNavItem : BottomNavItem {
 }
 
 object ManageClassNavItem : BottomNavItem {
+    private fun readResolve(): Any = ManageClassNavItem
     override val icon: Int = R.drawable.manage_class
     override val iconTint: Color = Green
     override val label: String = "학급관리"

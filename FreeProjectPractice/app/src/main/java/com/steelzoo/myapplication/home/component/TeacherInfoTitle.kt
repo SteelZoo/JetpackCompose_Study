@@ -17,13 +17,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.steelzoo.myapplication.R
 
+@Preview(showBackground = true)
+@Composable
+fun TeacherInfoCardPreview() {
+    TeacherInfoCard(
+        teacherName = "홍유준"
+    )
+}
 
 @Composable
-fun TeacherInfoCard(){
+fun TeacherInfoCard(
+    teacherName: String
+){
+    val height = 120.dp
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,17 +48,17 @@ fun TeacherInfoCard(){
             Image(
                 painter = painterResource(id = R.drawable.teacher),
                 contentDescription = null,
-                modifier = Modifier.size(100.dp),
+                modifier = Modifier.size(height),
                 contentScale = ContentScale.FillBounds
             )
             Column(
-                modifier = Modifier.height(100.dp),
+                modifier = Modifier.height(height),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "홍유준 선생님\n환영합니다.",
+                    text = "$teacherName 선생님\n환영합니다.",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 24.sp
                 )
             }
         }

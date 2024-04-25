@@ -70,8 +70,8 @@ fun RunningCardView(
             containerColor = cardColor
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.dp,
-            pressedElevation = 4.dp
+            defaultElevation = 4.dp,
+            pressedElevation = 6.dp
         ),
         onClick = {}
     ) {
@@ -90,11 +90,12 @@ fun RunningCardView(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                    .padding(start = 40.dp, end = 40.dp, bottom = 20.dp),
                 text = contentText,
                 textAlign = textAlign,
                 fontSize = 30.sp,
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Black,
+                letterSpacing = 6.sp
             )
         }
     }

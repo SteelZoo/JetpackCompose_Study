@@ -32,11 +32,11 @@ fun HomeScreen() {
             .fillMaxSize()
             .padding(start = 20.dp, end = 20.dp, top = 20.dp),
     ) {
-        TeacherInfoCard()
+        TeacherInfoCard("홍유준")
         RunningCardView(
             modifier = Modifier.padding(top = 40.dp),
             cardColor = Red,
-            contentText = "함께달리기",
+            contentText = "함께 달리기",
             textAlign = TextAlign.End,
             imageId = R.drawable.rocket,
             imageAligment = Alignment.BottomStart
@@ -44,7 +44,7 @@ fun HomeScreen() {
         RunningCardView(
             modifier = Modifier.padding(top = 20.dp),
             cardColor = Orange,
-            contentText = "이어달리기",
+            contentText = "이어 달리기",
             textAlign = TextAlign.Start,
             imageId = R.drawable.handshake,
             imageAligment = Alignment.CenterEnd
