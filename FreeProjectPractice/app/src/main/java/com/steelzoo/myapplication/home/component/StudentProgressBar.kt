@@ -45,7 +45,7 @@ fun StudentProgressBar(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = "${totalStudentCount}명 중 ${successStudentCount}명이 진행했습니다.",
+            text = "${totalStudentCount}명 중 ${successStudentCount}명이 진행했어요",
             textAlign = TextAlign.End,
             fontSize = 14.sp,
         )
